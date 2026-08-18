@@ -78,13 +78,73 @@ def result(board, action):
 
     if action not in possible_actions:
           raise Exception("Action not valid")
-
+    else:
+        return possible_actions.remove(action)
+     
 
 def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    
+    X_counter = 0
+    O_counter = 0
+    
+    # Row winners
+    for i in range(3):
+        if board[i].count(X) == 3:
+            print("X WINS!")
+            break
+        elif board[i].count(O) == 3:
+            print("O WINS!")
+            break
+        
+    # Column winners
+    for j in range(3):
+          match j:
+            case 0:
+              if board[i][0] == X:          
+                X_counter += 1
+                if X_counter == 3:
+                  print("X WINS!")
+                  break
+              if board[i][j] == O:          
+                O_counter += 1
+                if O_counter == 3:
+                  print("O WINS!")
+                  break
+            case 1:
+              if board[i][j] == X:          
+                X_counter += 1
+                if X_counter == 3:
+                  print("X WINS!")
+                  break
+              if board[i][j] == O:          
+                O_counter += 1
+                if O_counter == 3:
+                  print("O WINS!")
+                  break
+            case 2:
+              if board[i][j] == X:          
+                X_counter += 1
+                if X_counter == 3:
+                  print("X WINS!")
+                  break
+              if board[i][j] == O:          
+                O_counter += 1
+                if O_counter == 3:
+                  print("O WINS!")
+                  break
+              
+    # Diagonal winners
+    """if (board[0][0] == X and board[1][1] == X and board[2][2] == X) or (board[0][2] == X and board[1][1] == X and board[2][0] == X):
+            print("X WINS!")
+
+    
+    if (board[0][0] == O and board[1][1] == O and board[2][2] == O) or (board[0][2] == O and board[1][1] == O and board[2][0] == O):
+            print("O WINS!")"""
+    
+
 
 
 def terminal(board):
