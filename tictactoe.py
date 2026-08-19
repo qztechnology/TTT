@@ -105,28 +105,44 @@ def winner(board):
             return X
         elif board[i].count(O) == 3:
             return O
+        else:
+            return None
         
     # Column winners
     column = []
     for j in range(3):
       column = [board[i][j] for i in range(3)]
       if column[0] != EMPTY and all(c == column[0] for c in column):
-        print(f"{column[0]} WINS!")
+        return column[0]
+    else:
+        None
         
     # Diagonal winners
     if board == X_bs or board == X_s:
       return X
     elif board == O_bs or board == O_s:
       return O
-    
+    else:
+        None
 
+   
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
-
-
+    occupied_cell = 0
+    
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] != EMPTY:
+                occupied_cell += 1
+    
+    if occupied_cell == 9 or winner() != None:
+        return True
+    else:
+        return False
+    
+         
 def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
