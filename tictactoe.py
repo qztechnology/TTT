@@ -86,66 +86,39 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    
-    X_counter = 0
-    O_counter = 0
+    X_bs = [[X,EMPTY,EMPTY],
+        [EMPTY, X, EMPTY],
+        [EMPTY, EMPTY, X]]
+    X_s = [[EMPTY,EMPTY,X],
+            [EMPTY, X, EMPTY],
+            [X, EMPTY, EMPTY]]
+    O_bs = [[O,EMPTY,EMPTY],
+            [EMPTY, O, EMPTY],
+            [EMPTY, EMPTY, O]]
+    O_s = [[EMPTY,EMPTY,O],
+            [EMPTY, O, EMPTY],
+            [O, EMPTY, EMPTY]]
     
     # Row winners
     for i in range(3):
         if board[i].count(X) == 3:
-            print("X WINS!")
-            break
+            return X
         elif board[i].count(O) == 3:
-            print("O WINS!")
-            break
+            return O
         
     # Column winners
+    column = []
     for j in range(3):
-          match j:
-            case 0:
-              if board[i][0] == X:          
-                X_counter += 1
-                if X_counter == 3:
-                  print("X WINS!")
-                  break
-              if board[i][j] == O:          
-                O_counter += 1
-                if O_counter == 3:
-                  print("O WINS!")
-                  break
-            case 1:
-              if board[i][j] == X:          
-                X_counter += 1
-                if X_counter == 3:
-                  print("X WINS!")
-                  break
-              if board[i][j] == O:          
-                O_counter += 1
-                if O_counter == 3:
-                  print("O WINS!")
-                  break
-            case 2:
-              if board[i][j] == X:          
-                X_counter += 1
-                if X_counter == 3:
-                  print("X WINS!")
-                  break
-              if board[i][j] == O:          
-                O_counter += 1
-                if O_counter == 3:
-                  print("O WINS!")
-                  break
-              
+      column = [board[i][j] for i in range(3)]
+      if column[0] != EMPTY and all(c == column[0] for c in column):
+        print(f"{column[0]} WINS!")
+        
     # Diagonal winners
-    """if (board[0][0] == X and board[1][1] == X and board[2][2] == X) or (board[0][2] == X and board[1][1] == X and board[2][0] == X):
-            print("X WINS!")
-
+    if board == X_bs or board == X_s:
+      return X
+    elif board == O_bs or board == O_s:
+      return O
     
-    if (board[0][0] == O and board[1][1] == O and board[2][2] == O) or (board[0][2] == O and board[1][1] == O and board[2][0] == O):
-            print("O WINS!")"""
-    
-
-
 
 def terminal(board):
     """
