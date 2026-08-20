@@ -110,8 +110,6 @@ def winner(board):
             return X
         elif board[i].count(O) == 3:
             return O
-        else:
-            return None
         
     # Column winners
     column = []
@@ -123,12 +121,18 @@ def winner(board):
         None
         
     # Diagonal winners
-    if board == X_bs or board == X_s:
-      return X
-    elif board == O_bs or board == O_s:
-      return O
-    else:
-        None
+    diagonal_1 = []
+    for i in range(3):
+      diagonal_1 = [board[i][i] for i in range(3)]
+      if diagonal_1[0] != EMPTY and all(d == diagonal_1[0] for d in diagonal_1):        
+        return diagonal_1[0]
+    
+    diagonal_2 = []
+    for i in range(3):
+      diagonal_2 = [board[i][2 - i] for i in range(3)]
+      if diagonal_2[0] != EMPTY and all(d == diagonal_2[0] for d in diagonal_2):
+        return diagonal_2[0]
+        
 
    
 def terminal(board):
