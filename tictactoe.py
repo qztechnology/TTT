@@ -79,7 +79,12 @@ def result(board, action):
     if action not in possible_actions:
           raise Exception("Action not valid")
     else:
-        return possible_actions.remove(action)
+        if player(board) == X:
+          board_copy[action[0]][action[1]] = X
+        else:
+          board_copy[action[0]][action[1]] = O
+        possible_actions.remove(action)
+        return board_copy
      
 
 def winner(board):
