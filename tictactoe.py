@@ -29,7 +29,7 @@ def player(board):
     
     # The first player is X
     if board == initial_state():
-        return "X"
+        return X
     
     # Scan the all board to check how EMPTY
     for row in board:
@@ -39,9 +39,9 @@ def player(board):
     
     # based on the EMPTIES in the board select the next player
     if counter % 2 == 0:
-      print(f"player X")
+      return X
     else:
-      print(f"player O")
+      return O
 
 
 def actions(board):
@@ -49,13 +49,13 @@ def actions(board):
     Returns set of all possible actions (i, j) available on the board.
     """
     
-    actions = []
+    actions = set()
 
     for i,row in enumerate(board):
         for j,cell in enumerate(row):
             if cell == EMPTY:
                 free_cell = (i,j)
-                actions.append(free_cell)
+                actions.add(free_cell)
     
     return actions
 
@@ -162,11 +162,43 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
-
-
+    # Exit the game if is a terminal board
+    if terminal(board) == True:
+        return None
+    else:
+        
+    
+        # If the player current player is X use max_value()
+        if player(board) == X:
+            return max_value(board)
+        else:
+            return min_value(board)
+            
+            
 def check_matrix():
     """
     Returns the matrix state.
     """
     return True
+
+
+def max_value(board):
+    """
+    Returns max possible value
+    """  
+    v = -math.inf
+    
+    for action in actions(board):
+        v = max(v, min_value(result(board,action)))
+        return v
+
+
+def min_value(board):
+    """
+    Returns min possible value
+    """
+    v = math.inf
+    
+    for action in actions(board):
+        v = min(v, max_value(result(board,action)))
+        return v
