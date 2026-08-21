@@ -134,7 +134,6 @@ def winner(board):
         return diagonal_2[0]
         
 
-   
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
@@ -146,7 +145,7 @@ def terminal(board):
             if board[i][j] != EMPTY:
                 occupied_cell += 1
     
-    if occupied_cell == 9 or winner() != None:
+    if occupied_cell == 9 or winner(board) != None:
         return True
     else:
         return False
@@ -175,13 +174,25 @@ def minimax(board):
     if terminal(board) == True:
         return None
     else:
-        
-    
-        # If the player current player is X use max_value()
-        if player(board) == X:
-            return max_value(board)
-        else:
-            return min_value(board)
+        best_action = ()
+        vx = -math.inf
+        vo = math.inf
+        for action in actions(board):
+            if player(board) == X:
+                v = min_value(result(board,action))
+                if v >= vx:
+                    vx = v
+                    best_action = action
+                else:
+                    continue
+            elif player(board) == O:
+                v = max_value(result(board,action))
+                if v <= vo:
+                    vo = v
+                    best_action = action
+                else:
+                    continue
+        return best_action
             
             
 def check_matrix():
@@ -197,9 +208,12 @@ def max_value(board):
     """  
     v = -math.inf
     
+    if terminal(board) == True:
+        return utility(board)
+    
     for action in actions(board):
         v = max(v, min_value(result(board,action)))
-        return v
+    return v
 
 
 def min_value(board):
@@ -208,6 +222,9 @@ def min_value(board):
     """
     v = math.inf
     
+    if terminal(board) == True:
+        return utility(board)
+        
     for action in actions(board):
         v = min(v, max_value(result(board,action)))
-        return v
+    return v
